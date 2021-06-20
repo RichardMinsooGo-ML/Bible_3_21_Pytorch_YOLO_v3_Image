@@ -47,9 +47,11 @@ https://drive.google.com/file/d/1hObjDyZxkUZICHs7jWxntuBPXttn1_Yc/view?usp=shari
 You can download darknet weights from my google drive:
 
 - [x] coco
+
 https://drive.google.com/file/d/1pMfW7OQKpVRJgSDMcsc5ChzLj9FAtEhM/view?usp=sharing
 
 - [x] voc
+
 https://drive.google.com/file/d/1JpZqg6MBpBhHRN3TXcFynakWC_lIhcb6/view?usp=sharing
 
 
@@ -151,8 +153,6 @@ Start with using pretrained weights to calculate mAP:
 ```    
     $ python eval_mAP.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path data/COCO2017/coco.names
 ```
-
-
 
 ## 6. Training
 Start with using pretrained weights to calculate mAP:
