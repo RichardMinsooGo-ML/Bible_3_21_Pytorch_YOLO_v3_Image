@@ -4,7 +4,7 @@ YOLOv3 and YOLOv3_tiny implementation in Pytorch, with support for training, tra
 Code was tested with following specs:
 - Code was tested on Windows 10
 
-## Installation
+## 1. Installation
 First, clone or download this GitHub repository.
 Install requirements and download from official darknet weights:
 ```
@@ -20,7 +20,7 @@ Or you can download darknet weights from my google drive:
 
 https://drive.google.com/drive/folders/1w4KNO2jIlkyzQgUkkcZ18zrC8A1Nqvwa?usp=sharing
 
-## Pretrained weights
+## 2. Pretrained weights
 
 You can download darknet weights from my google drive:
 
@@ -42,7 +42,7 @@ https://drive.google.com/file/d/1WdLuJfEuPDfpB_aGEGUYT4E1PFkp2SzY/view?usp=shari
 https://drive.google.com/file/d/1hObjDyZxkUZICHs7jWxntuBPXttn1_Yc/view?usp=sharing
 
 
-## Datasets
+## 3. Datasets
 
 You can download darknet weights from my google drive:
 
@@ -75,10 +75,10 @@ ${ROOT}
 │         └── valid.txt
 ```
 
-## Detection demo
+## 4. Detection demo
 Start with using pretrained weights to test predictions on both image and video:
 
-### voc:
+### 4.1. voc:
 - Download `pretrained weights` from links above;
 - For `Yolov3` image detection test from `trained weight`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
 ```
@@ -90,7 +90,7 @@ Start with using pretrained weights to test predictions on both image and video:
     $ python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
 ```
 
-### coco:
+### 4.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
 - For `Yolov3` image detection test from `darknet weight`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/yolov3.weights`, `--class_path` as `data/COCO2017/coco.names`;
 ```
@@ -113,10 +113,10 @@ Start with using pretrained weights to test predictions on both image and video:
     $ python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path data/COCO2017/coco.names
 ```
 
-## Evaluation - mAP (mean average precision)
+## 5. Evaluation - mAP (mean average precision)
 Start with using pretrained weights to calculate mAP:
 
-### voc:
+### 5.1. voc:
 - Download `pretrained weights` from links above;
 
 - To calculate mAP with `Yolov3` and `VOC` datasets from `pretrained weights`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
@@ -129,7 +129,7 @@ Start with using pretrained weights to calculate mAP:
     $ python eval_mAP.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
 ```
 
-### coco:
+### 5.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
 
 - To calculate mAP with `Yolov3` and `COCO` datasets from `darknet weights`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/yolov3.weights`, `--class_path` as `data/COCO2017/coco.names`;
@@ -154,10 +154,10 @@ Start with using pretrained weights to calculate mAP:
 
 
 
-## Training
+## 6. Training
 Start with using pretrained weights to calculate mAP:
 
-### voc:
+### 6.1. voc:
 - Download `pretrained weights` or `darknet weights` from links above;
 - To train `Yolov3` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`,` --model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
 ```
@@ -181,7 +181,7 @@ Start with using pretrained weights to calculate mAP:
     $ python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_VOC_tiny.pth --save_path checkpoints/Yolo_V3_VOC_tiny.pth
 ```
 
-### coco:
+### 6.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
 
 ```
