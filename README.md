@@ -26,15 +26,19 @@ You can download darknet weights from my google drive:
 
 I uploaded weigts for the below models
 - [x] yolo_v3_coco
+
 https://drive.google.com/file/d/14gquwQfsabRkCbi9Qld_eh725KUvnN83/view?usp=sharing
 
 - [x] yolo_v3_coco_tiny
+
 https://drive.google.com/file/d/1WdLuJfEuPDfpB_aGEGUYT4E1PFkp2SzY/view?usp=sharing
 
 - [x] yolo_v3_voc
+
 "Update the trained weights"
 
 - [x] yolo_v3_voc_tiny
+
 https://drive.google.com/file/d/1hObjDyZxkUZICHs7jWxntuBPXttn1_Yc/view?usp=sharing
 
 
