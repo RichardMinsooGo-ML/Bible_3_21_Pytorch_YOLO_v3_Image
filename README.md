@@ -24,7 +24,7 @@ https://drive.google.com/drive/folders/1w4KNO2jIlkyzQgUkkcZ18zrC8A1Nqvwa?usp=sha
 
 You can download darknet weights from my google drive:
 
-I uploaded weigts for the below models
+I uploaded weights for the below models
 - [x] yolo_v3_coco
 
 https://drive.google.com/file/d/14gquwQfsabRkCbi9Qld_eh725KUvnN83/view?usp=sharing
