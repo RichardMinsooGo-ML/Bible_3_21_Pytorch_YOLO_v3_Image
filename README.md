@@ -121,12 +121,12 @@ Start with using pretrained weights to calculate mAP:
 ### 5.1. voc:
 - Download `pretrained weights` from links above;
 
-- To calculate mAP with `Yolov3` and `VOC` datasets from `pretrained weights`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
+- To calculate mAP with `Yolov3` and `VOC` datasets from `pretrained weights`,  set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
 ```
     $ python eval_mAP.py --data_config config/VOC.data --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_VOC.pth --class_path data/VOC2012/voc2012.names
 ```
 
-- To calculate mAP with `Yolov3-tiny` and `VOC` datasets from `pretrained weights`, set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
+- To calculate mAP with `Yolov3-tiny` and `VOC` datasets from `pretrained weights`,  set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
 ```
     $ python eval_mAP.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
 ```
@@ -134,22 +134,22 @@ Start with using pretrained weights to calculate mAP:
 ### 5.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
 
-- To calculate mAP with `Yolov3` and `COCO` datasets from `darknet weights`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/yolov3.weights`, `--class_path` as `data/COCO2017/coco.names`;
+- To calculate mAP with `Yolov3` and `COCO` datasets from `darknet weights`,  set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/yolov3.weights`, `--class_path` as `data/COCO2017/coco.names`;
 ```
     $ python eval_mAP.py --data_config config/coco.data --model_def config/yolov3.cfg --save_path checkpoints/yolov3.weights --class_path data/COCO2017/coco.names
 ``` 
 
-- To calculate mAP with `Yolov3` and `COCO` datasets from `pretrained weights`, set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_coco.pth`, `--class_path` as `data/COCO2017/coco.names`;    
+- To calculate mAP with `Yolov3` and `COCO` datasets from `pretrained weights`,  set `--model_def` as `config/yolov3.cfg`, `--save_path` as `checkpoints/Yolo_V3_coco.pth`, `--class_path` as `data/COCO2017/coco.names`;    
 ```    
     $ python eval_mAP.py --data_config config/coco.data --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_coco.pth --class_path data/COCO2017/coco.names
 ```
 
-- To calculate mAP with `Yolov3-tiny` and `COCO` datasets from `darknet weights`, set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/yolov3-tiny.weights`, `--class_path` as `data/COCO2017/coco.names`;
+- To calculate mAP with `Yolov3-tiny` and `COCO` datasets from `darknet weights`,  set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/yolov3-tiny.weights`, `--class_path` as `data/COCO2017/coco.names`;
 ```
     $ python eval_mAP.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/yolov3-tiny.weights --class_path data/COCO2017/coco.names
 ```
 
-- To calculate mAP with `Yolov3-tiny` and `COCO` datasets from `pretrained weights`, set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/Yolo_V3_coco_tiny.pth`, `--class_path` as `data/COCO2017/coco.names`;    
+- To calculate mAP with `Yolov3-tiny` and `COCO` datasets from `pretrained weights`,  set `--model_def` as `config/yolov3-tiny.cfg`, `--save_path` as `checkpoints/Yolo_V3_coco_tiny.pth`, `--class_path` as `data/COCO2017/coco.names`;    
 ```    
     $ python eval_mAP.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path data/COCO2017/coco.names
 ```
@@ -159,51 +159,49 @@ Start with using pretrained weights to calculate mAP:
 
 ### 6.1. voc:
 - Download `pretrained weights` or `darknet weights` from links above;
-- To train `Yolov3` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
+- To train `Yolov3` and `VOC` datasets from `darknet weights`,  set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
 ```
     $ python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_VOC.pth
 ```    
     
-- To train `Yolov3` and `VOC` datasets from `pretrained weights`, set `--data_config` as `config/VOC.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC.pth`;
+- To train `Yolov3` and `VOC` datasets from `pretrained weights`,  set `--data_config` as `config/VOC.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC.pth`;
 ```    
     $ python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_VOC.pth --save_path checkpoints/Yolo_V3_VOC.pth
 ```    
 
-- To train `Yolov3-tiny` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/yolov3-tiny.weights`;
-    
+- To train `Yolov3-tiny` and `VOC` datasets from `darknet weights`,  set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/yolov3-tiny.weights`;    
 ```
     $ python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/yolov3-tiny.weights --save_path checkpoints/Yolo_V3_VOC_tiny.pth
 ```    
 
-- To train `Yolov3-tiny` and `VOC` datasets from `pretrained weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`;
-    
+- To train `Yolov3-tiny` and `VOC` datasets from `pretrained weights`,  set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`;
 ```    
     $ python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_VOC_tiny.pth --save_path checkpoints/Yolo_V3_VOC_tiny.pth
 ```
 
 ### 6.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
-- To train `Yolov3` and `COCO` datasets from `darknet weights`, set `--data_config` as `config/coco.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
+- To train `Yolov3` and `COCO` datasets from `darknet weights`,  set `--data_config` as `config/coco.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
 ```
     $ python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_coco.pth
 ```    
     
-- To train `Yolov3` and `COCO` datasets from `pretrained weights`, set `--data_config` as `config/coco.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_coco.pth`;
+- To train `Yolov3` and `COCO` datasets from `pretrained weights`,  set `--data_config` as `config/coco.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_coco.pth`;
 ```    
     $ python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_coco.pth --save_path checkpoints/Yolo_V3_coco.pth
 ```    
-    
+
+- To train `Yolov3-tiny` and `COCO` datasets from `darknet weights`,  set `--data_config` as `config/coco.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/yolov3-tiny.weights`;        
 ```
     $ python train.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/yolov3-tiny.weights --save_path checkpoints/Yolo_V3_coco_tiny.pth
 ```    
     
+- To train `Yolov3-tiny` and `COCO` datasets from `pretrained weights`,  set `--data_config` as `config/coco.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`;    
 ```    
     $ python train.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_coco_tiny.pth --save_path checkpoints/Yolo_V3_coco_tiny.pth
 ```
 
-
-
-## Folder structure
+## 7. Folder structure
 ```
 ${ROOT}
 ├── detect_images.py
