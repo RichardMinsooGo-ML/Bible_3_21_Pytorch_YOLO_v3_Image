@@ -22,7 +22,7 @@ https://drive.google.com/drive/folders/1w4KNO2jIlkyzQgUkkcZ18zrC8A1Nqvwa?usp=sha
 
 ## 2. Pretrained weights
 
-You can download darknet weights from my google drive:
+You can download pretrained weights from my google drive:
 
 I uploaded weights for the below models
 - [x] yolo_v3_coco
@@ -35,7 +35,7 @@ https://drive.google.com/file/d/1WdLuJfEuPDfpB_aGEGUYT4E1PFkp2SzY/view?usp=shari
 
 - [x] yolo_v3_voc
 
-"Update the trained weights"
+"Training in on progress"
 
 - [x] yolo_v3_voc_tiny
 
