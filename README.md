@@ -4,6 +4,8 @@ YOLOv3 and YOLOv3_tiny implementation in Pytorch, with support for training, tra
 Code was tested with following specs:
 - Code was tested on Windows 10
 
+![city](./asset/city.png)
+
 ## 1. Installation
 First, clone or download this GitHub repository.
 Install requirements and download from official darknet weights:
