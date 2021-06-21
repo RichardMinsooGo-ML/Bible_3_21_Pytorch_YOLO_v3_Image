@@ -35,7 +35,7 @@ https://drive.google.com/file/d/1WdLuJfEuPDfpB_aGEGUYT4E1PFkp2SzY/view?usp=shari
 
 - [x] yolo_v3_voc
 
-"Training i on progress"
+"Training is on progress"
 
 - [x] yolo_v3_voc_tiny
 
