@@ -183,11 +183,12 @@ Start with using pretrained weights to calculate mAP:
 
 ### 6.2. coco:
 - Download `pretrained weights` or `darknet weights` from links above;
-
+- To train `Yolov3` and `COCO` datasets from `darknet weights`, set `--data_config` as `config/coco.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
 ```
     $ python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_coco.pth
 ```    
     
+- To train `Yolov3` and `COCO` datasets from `pretrained weights`, set `--data_config` as `config/coco.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_coco.pth`;
 ```    
     $ python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_coco.pth --save_path checkpoints/Yolo_V3_coco.pth
 ```    
