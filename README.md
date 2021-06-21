@@ -159,23 +159,23 @@ Start with using pretrained weights to calculate mAP:
 
 ### 6.1. voc:
 - Download `pretrained weights` or `darknet weights` from links above;
-- To train `Yolov3` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`,` --model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
+- To train `Yolov3` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/yolov3.weights` ;
 ```
     $ python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_VOC.pth
 ```    
     
-- To train `Yolov3` and `VOC` datasets from `pretrained weights`, set `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
+- To train `Yolov3` and `VOC` datasets from `pretrained weights`, set `--data_config` as `config/VOC.data`,  `--model_def` as `config/yolov3.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC.pth`;
 ```    
     $ python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_VOC.pth --save_path checkpoints/Yolo_V3_VOC.pth
 ```    
 
-- To train `Yolov3-tiny` and `VOC` datasets from `darknet weights`, set `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/yolov3-tiny.weights`, `--class_path` as `data/VOC2012/voc2012.names`;
+- To train `Yolov3-tiny` and `VOC` datasets from `darknet weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/yolov3-tiny.weights`;
     
 ```
     $ python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/yolov3-tiny.weights --save_path checkpoints/Yolo_V3_VOC_tiny.pth
 ```    
 
-- To train `Yolov3-tiny` and `VOC` datasets from `pretrained weights`, set `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`, `--class_path` as `data/VOC2012/voc2012.names`;
+- To train `Yolov3-tiny` and `VOC` datasets from `pretrained weights`, set `--data_config` as `config/VOC.data`, `--model_def` as `config/yolov3-tiny.cfg`, `--trained_path` as `checkpoints/Yolo_V3_VOC_tiny.pth`;
     
 ```    
     $ python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_VOC_tiny.pth --save_path checkpoints/Yolo_V3_VOC_tiny.pth
