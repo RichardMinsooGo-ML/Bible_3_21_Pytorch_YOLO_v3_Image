@@ -4,13 +4,12 @@
 # python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/yolov3-tiny.weights --class_path data/COCO2017/coco.names
 # python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path data/COCO2017/coco.names
 
-# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_VOC.pth --class_path data/VOC2012/detect_imagesvoc2012.names
+# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_VOC.pth --class_path data/VOC2012/voc2012.names
 
 # python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
 
-
 import os, sys, time, datetime, argparse
-os.environ["KMP_DUPLICATE_LIB_OK"]="True"
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 from PIL import Image
 
@@ -22,7 +21,7 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 from torch.autograd import Variable
 
-from models.models import *
+# from models.models import *
 # from model.yolov3 import *
 
 import matplotlib.pyplot as plt
@@ -34,7 +33,7 @@ Path("pred_IMAGES/images").mkdir(parents=True, exist_ok=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--image_folder"   , type=str, default="data/custom/images", help="path to dataset")
+    parser.add_argument("--image_folder"   , type=str, default="data/custom/samples", help="path to dataset")
     # parser.add_argument("--image_folder"   , type=str, default="data/VOC2012/test_images"  , help="path to dataset")
     
     # Yolov3 : COCO
@@ -71,10 +70,22 @@ if __name__ == "__main__":
     configs = parser.parse_args()
     print(configs)
 
-    classes = load_classes(configs.class_path)
+    ############## Hardware configurations #############################    
+    configs.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Initiate model
+    # model.apply(weights_init_normal)
+    
+    if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
+        from model.yolov3 import *
+        model = Darknet(configs.img_size, num_classes=20).to(configs.device)
+    else:
+        from models.models import *
+        model = Darknet(configs.model_def).to(configs.device)
+    
     # model = Darknet(configs.img_size, num_classes=20)
-    model = Darknet(configs.model_def, img_size=configs.img_size)
+    # model = Darknet(configs.model_def, img_size=configs.img_size)
+    classes = load_classes(configs.class_path)
+
     # model.print_network()
     print("\n" + "___m__@@__m___" * 10 + "\n")
     
@@ -82,6 +93,7 @@ if __name__ == "__main__":
     
     assert os.path.isfile(configs.save_path), "No file at {}".format(configs.save_path)
 
+    # If specified we start from checkpoint
     if configs.save_path:
         if configs.save_path.endswith(".pth"):
             model.load_state_dict(torch.load(configs.save_path))
@@ -89,12 +101,14 @@ if __name__ == "__main__":
         else:
             model.load_darknet_weights(configs.save_path)
             print("Darknet weight loaded!")
-    # torch.save(model.state_dict(), configs.save_path)
+    # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco.pth")
+    # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco_tiny.pth")
     # sys.exit()
+    
     # Eval mode
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # configs.device = torch.device("cpu" if configs.no_cuda else "cuda:{}".format(configs.gpu_idx))
-    model = model.to(device = device)
+    # model = model.to(device = device)
     model.eval()
     os.makedirs("pred_IMAGES", exist_ok=True)
 

@@ -8,24 +8,24 @@
 
 # python eval_mAP.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
 
-
 import os, sys, time, datetime, argparse
-os.environ["KMP_DUPLICATE_LIB_OK"]="True"
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 import numpy as np
 import torch
+
 import tqdm
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 import torch.optim as optim
 
-from models.models import *
+# from models.models import *
 # from model.yolov3 import *
 
 from utils.utils import *
+from utils.datasets import *
 from utils.train_utils import *
 
-from utils.datasets import *
 
 def evaluate_mAP(model, path, configs, batch_size):
     # switch to evaluate mode
@@ -98,24 +98,31 @@ if __name__ == "__main__":
     """
         
     parser.add_argument("--batch_size" , type=int  , default=4, help="size of each image batch")
+    parser.add_argument("--img_size"   , type=int,   default=416, help="size of each image dimension")
     parser.add_argument("--n_cpu"      , type=int,   default=4, help="number of cpu threads to use during batch generation")
     parser.add_argument("--iou_thres"  , type=float, default=0.5, help="iou threshold required to qualify as detected")
     parser.add_argument("--conf_thres" , type=float, default=0.5, help="object confidence threshold")
     parser.add_argument("--nms_thres"  , type=float, default=0.5, help="iou thresshold for non-maximum suppression")
-    parser.add_argument("--img_size"   , type=int,   default=416, help="size of each image dimension")
     configs = parser.parse_args()
     print(configs)
 
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    ############## Hardware configurations #############################    
+    configs.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # Initiate model
+    # model.apply(weights_init_normal)
+    
+    if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
+        from model.yolov3 import *
+        model = Darknet(configs.img_size, num_classes=20).to(configs.device)
+    else:
+        from models.models import *
+        model = Darknet(configs.model_def).to(configs.device)
+    
+    # Get data configuration
     data_config = parse_data_config(configs.data_config)
     valid_path = data_config["valid"]
     class_names = load_classes(data_config["names"])
 
-    # Initiate model
-    # model = Darknet(configs.img_size, num_classes=80)
-    model = Darknet(configs.model_def) # .to(device)
-    
     # model.print_network()
     print("\n" + "___m__@@__m___" * 10 + "\n")
     
@@ -123,6 +130,7 @@ if __name__ == "__main__":
     
     assert os.path.isfile(configs.save_path), "No file at {}".format(configs.save_path)
 
+    # If specified we start from checkpoint
     if configs.save_path:
         if configs.save_path.endswith(".pth"):
             model.load_state_dict(torch.load(configs.save_path))
@@ -135,9 +143,9 @@ if __name__ == "__main__":
     # sys.exit()
     
     # Eval mode
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # configs.device = torch.device("cpu" if configs.no_cuda else "cuda:{}".format(configs.gpu_idx))
-    model = model.to(device = device)
+    # model = model.to(device = device)
     model.eval()
     
     print(valid_path)

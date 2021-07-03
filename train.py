@@ -29,50 +29,51 @@ from torch.autograd import Variable
 import torch.optim as optim
 from eval_mAP import evaluate_mAP
 
-from models.models import *
+# from models.models import *
 # from model.yolov3 import *
 
-def main():
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
     """
     # Yolov3 : COCO
-    parser.add_argument('--data_config' , type=str,   default="config/coco.data", help="path to data config file")
-    parser.add_argument('--model_def'   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
-    parser.add_argument('--trained_path', type=str, default="checkpoints/yolov3.weights", help="if specified starts from checkpoint model")
-    parser.add_argument('--save_path', type=str, default="checkpoints/Yolo_V3_coco.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--data_config" , type=str,   default="config/coco.data", help="path to data config file")
+    parser.add_argument("--model_def"   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
+    parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3.weights", help="if specified starts from checkpoint model")
+    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_coco.pth", help="if specified starts from checkpoint model")
         
     # Yolov3-tiny : COCO
-    parser.add_argument('--data_config' , type=str,   default="config/coco.data", help="path to data config file")
-    parser.add_argument('--model_def'   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
-    parser.add_argument('--trained_path', type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
-    parser.add_argument('--save_path', type=str, default="checkpoints/Yolo_V3_coco_tiny.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--data_config" , type=str,   default="config/coco.data", help="path to data config file")
+    parser.add_argument("--model_def"   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
+    parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
+    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_coco_tiny.pth", help="if specified starts from checkpoint model")
     
     # Yolov3 : VOC
-    parser.add_argument('--data_config' , type=str,   default="config/VOC.data", help="path to data config file")
-    parser.add_argument('--model_def'   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
-    parser.add_argument('--trained_path', type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
-    parser.add_argument('--save_path', type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--data_config" , type=str,   default="config/VOC.data", help="path to data config file")
+    parser.add_argument("--model_def"   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
+    # parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3.weights", help="if specified starts from checkpoint model")
+    parser.add_argument("--trained_path", type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
     """
     # Yolov3-tiny : VOC
-    parser.add_argument('--data_config' , type=str,   default="config/VOC.data", help="path to data config file")
-    parser.add_argument('--model_def'   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
-    # parser.add_argument('--trained_path', type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
-    parser.add_argument('--trained_path', type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
-    parser.add_argument('--save_path', type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--data_config" , type=str,   default="config/VOC.data", help="path to data config file")
+    parser.add_argument("--model_def"   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
+    # parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
+    parser.add_argument("--trained_path", type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
+    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
     
     
-    # parser.add_argument('--data_config' , type=str,   default="config/custom.data", help="path to data config file")
-    parser.add_argument('--working-dir' , type=str, default='./', metavar='PATH', help='The ROOT working directory')
-    parser.add_argument('--num_epochs'  , type=int, default=2, help="number of epochs")
-    parser.add_argument('--batch_size'  , type=int, default=4, help="size of each image batch")
+    # parser.add_argument("--data_config" , type=str,   default="config/custom.data", help="path to data config file")
+    parser.add_argument("--working-dir" , type=str, default='./', metavar='PATH', help='The ROOT working directory')
+    parser.add_argument("--num_epochs"  , type=int, default=2, help="number of epochs")
+    parser.add_argument("--batch_size"  , type=int, default=4, help="size of each image batch")
+    parser.add_argument("--img_size"    , type=int, default=416, help="size of each image dimension")
+    parser.add_argument("--n_cpu", type=int, default=1, help="number of cpu threads to use during batch generation")
     
-    parser.add_argument('--gradient_accumulations', type=int, default=2, help="number of gradient accums before step")
-    parser.add_argument('--img_size'    , type=int, default=416, help="size of each image dimension")
-    parser.add_argument('--n_cpu', type=int, default=1, help="number of cpu threads to use during batch generation")
-    parser.add_argument('--evaluation_interval', type=int, default=2, help="interval evaluations on validation set")
-    parser.add_argument('--multiscale_training', default=True, help="allow for multi-scale training")
-    parser.add_argument('--checkpoint_freq', type=int, default=2, metavar='N', help='frequency of saving checkpoints (default: 2)')
+    parser.add_argument("--gradient_accumulations", type=int, default=2, help="number of gradient accums before step")
+    parser.add_argument("--evaluation_interval", type=int, default=2, help="interval evaluations on validation set")
+    parser.add_argument("--multiscale_training", default=True, help="allow for multi-scale training")
+    parser.add_argument("--checkpoint_freq", type=int, default=2, metavar='N', help='frequency of saving checkpoints (default: 2)')
     
     configs = parser.parse_args()
     configs.iou_thres  = 0.5
@@ -94,29 +95,39 @@ def main():
     ############## Hardware configurations #############################    
     configs.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Initiate model
-    # model = Darknet(configs.img_size, num_classes=20).to(configs.device)
-    model = Darknet(configs.model_def).to(configs.device)
     # model.apply(weights_init_normal)
+    
+    if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
+        from model.yolov3 import *
+        model = Darknet(configs.img_size, num_classes=20).to(configs.device)
+    else:
+        from models.models import *
+        model = Darknet(configs.model_def).to(configs.device)
     
     # Get data configuration
     data_config = parse_data_config(configs.data_config)
     train_path = data_config["train"]
     valid_path = data_config["valid"]
+    class_names = load_classes(data_config["names"])
 
+    # model.print_network()
+    print("\n" + "___m__@@__m___" * 10 + "\n")
     
+    print(configs.trained_path)
+    
+    assert os.path.isfile(configs.trained_path), "No file at {}".format(configs.trained_path)
+
     # If specified we start from checkpoint
-    
-    if configs.save_path:
-        if configs.save_path.endswith(".pth"):
-            model.load_state_dict(torch.load(configs.save_path))
+    if configs.trained_path:
+        if configs.trained_path.endswith(".pth"):
+            model.load_state_dict(torch.load(configs.trained_path))
             print("Trained pytorch weight loaded!")
         else:
-            model.load_darknet_weights(configs.save_path)
+            model.load_darknet_weights(configs.trained_path)
             print("Darknet weight loaded!")
-    # torch.save(model.state_dict(), configs.save_path)
+    # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco.pth")
+    # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco_tiny.pth")
     # sys.exit()
-    
-    class_names = load_classes(data_config["names"])
     
     optimizer = torch.optim.Adam(model.parameters())
 
@@ -302,6 +313,4 @@ def main():
         print('save a checkpoint at {}'.format(configs.save_path))
         """            
             
-if __name__ == '__main__':
-    main()
     
