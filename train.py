@@ -29,7 +29,7 @@ from torch.autograd import Variable
 import torch.optim as optim
 from eval_mAP import evaluate_mAP
 
-# from models.models import *
+from models.models import *
 # from model.yolov3 import *
 
 if __name__ == "__main__":
@@ -97,12 +97,12 @@ if __name__ == "__main__":
     # Initiate model
     # model.apply(weights_init_normal)
     
-    if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
-        from model.yolov3 import *
-        model = Darknet(configs.img_size, num_classes=20).to(configs.device)
-    else:
-        from models.models import *
-        model = Darknet(configs.model_def).to(configs.device)
+    # if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
+    #     from model.yolov3 import *
+    #     model = Darknet(configs.img_size, num_classes=20).to(configs.device)
+    # else:
+    # from models.models import *
+    model = Darknet(configs.model_def).to(configs.device)
     
     # Get data configuration
     data_config = parse_data_config(configs.data_config)
