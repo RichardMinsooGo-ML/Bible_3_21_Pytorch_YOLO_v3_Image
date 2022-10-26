@@ -1,15 +1,3 @@
-# python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_coco.pth
-# python train.py --data_config config/coco.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_coco.pth --save_path checkpoints/Yolo_V3_coco.pth
-
-# python train.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/yolov3-tiny.weights --save_path checkpoints/Yolo_V3_coco_tiny.pth
-# python train.py --data_config config/coco.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_coco_tiny.pth --save_path checkpoints/Yolo_V3_coco_tiny.pth
-
-# python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/yolov3.weights --save_path checkpoints/Yolo_V3_VOC.pth
-# python train.py --data_config config/VOC.data --model_def config/yolov3.cfg --trained_path checkpoints/Yolo_V3_VOC.pth --save_path checkpoints/Yolo_V3_VOC.pth
-
-# python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/yolov3-tiny.weights --save_path checkpoints/Yolo_V3_VOC_tiny.pth
-# python train.py --data_config config/VOC.data --model_def config/yolov3-tiny.cfg --trained_path checkpoints/Yolo_V3_VOC_tiny.pth --save_path checkpoints/Yolo_V3_VOC_tiny.pth
-    
 from terminaltables import AsciiTable
 
 import os, sys, time, datetime, argparse
@@ -30,100 +18,38 @@ import torch.optim as optim
 from eval_mAP import evaluate_mAP
 
 from models.models import *
-# from model.yolov3 import *
+from config.train_config import parse_train_configs
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+def main():
+    # Get data configuration
+    configs = parse_train_configs()
     
-    """
-    # Yolov3 : COCO
-    parser.add_argument("--data_config" , type=str,   default="config/coco.data", help="path to data config file")
-    parser.add_argument("--model_def"   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
-    parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3.weights", help="if specified starts from checkpoint model")
-    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_coco.pth", help="if specified starts from checkpoint model")
-        
-    # Yolov3-tiny : COCO
-    parser.add_argument("--data_config" , type=str,   default="config/coco.data", help="path to data config file")
-    parser.add_argument("--model_def"   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
-    parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
-    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_coco_tiny.pth", help="if specified starts from checkpoint model")
-    
-    # Yolov3 : VOC
-    parser.add_argument("--data_config" , type=str,   default="config/VOC.data", help="path to data config file")
-    parser.add_argument("--model_def"   , type=str,   default="config/yolov3.cfg", help="path to model definition file")
-    # parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3.weights", help="if specified starts from checkpoint model")
-    parser.add_argument("--trained_path", type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
-    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_VOC.pth", help="if specified starts from checkpoint model")
-    """
-    # Yolov3-tiny : VOC
-    parser.add_argument("--data_config" , type=str,   default="config/VOC.data", help="path to data config file")
-    parser.add_argument("--model_def"   , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
-    # parser.add_argument("--trained_path", type=str, default="checkpoints/yolov3-tiny.weights", help="if specified starts from checkpoint model")
-    parser.add_argument("--trained_path", type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
-    parser.add_argument("--save_path", type=str, default="checkpoints/Yolo_V3_VOC_tiny.pth", help="if specified starts from checkpoint model")
-    
-    
-    # parser.add_argument("--data_config" , type=str,   default="config/custom.data", help="path to data config file")
-    parser.add_argument("--working-dir" , type=str, default='./', metavar='PATH', help='The ROOT working directory')
-    parser.add_argument("--num_epochs"  , type=int, default=2, help="number of epochs")
-    parser.add_argument("--batch_size"  , type=int, default=4, help="size of each image batch")
-    parser.add_argument("--img_size"    , type=int, default=416, help="size of each image dimension")
-    parser.add_argument("--n_cpu", type=int, default=1, help="number of cpu threads to use during batch generation")
-    
-    parser.add_argument("--gradient_accumulations", type=int, default=2, help="number of gradient accums before step")
-    parser.add_argument("--evaluation_interval", type=int, default=2, help="interval evaluations on validation set")
-    parser.add_argument("--multiscale_training", default=True, help="allow for multi-scale training")
-    parser.add_argument("--checkpoint_freq", type=int, default=2, metavar='N', help='frequency of saving checkpoints (default: 2)')
-    
-    configs = parser.parse_args()
-    configs.iou_thres  = 0.5
-    configs.conf_thres = 0.5
-    configs.nms_thres  = 0.5
-                
-    ############## Dataset, logs, Checkpoints dir ######################
-    
-    configs.ckpt_dir    = os.path.join(configs.working_dir, 'checkpoints')
-    configs.logs_dir    = os.path.join(configs.working_dir, 'logs')
+    print(configs.device)
 
-    print(configs)
-
-    if not os.path.isdir(configs.ckpt_dir):
-        os.makedirs(configs.ckpt_dir)
-    if not os.path.isdir(configs.logs_dir):
-        os.makedirs(configs.logs_dir)
-
-    ############## Hardware configurations #############################    
-    configs.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Initiate model
-    # model.apply(weights_init_normal)
     
-    # if configs.save_path == "checkpoints/Yolo_V3_VOC.pth":
-    #     from model.yolov3 import *
-    #     model = Darknet(configs.img_size, num_classes=20).to(configs.device)
-    # else:
-    # from models.models import *
-    model = Darknet(configs.model_def).to(configs.device)
+    model = Darknet(configs.model_def)
+    # model.apply(weights_init_normal)
+    # model.print_network()
+    model = model.to(configs.device)
     
     # Get data configuration
     data_config = parse_data_config(configs.data_config)
     train_path = data_config["train"]
     valid_path = data_config["valid"]
     class_names = load_classes(data_config["names"])
-
-    # model.print_network()
-    print("\n" + "___m__@@__m___" * 10 + "\n")
     
-    print(configs.trained_path)
+    print(configs.pretrained_path)
     
-    assert os.path.isfile(configs.trained_path), "No file at {}".format(configs.trained_path)
+    assert os.path.isfile(configs.pretrained_path), "No file at {}".format(configs.pretrained_path)
 
     # If specified we start from checkpoint
-    if configs.trained_path:
-        if configs.trained_path.endswith(".pth"):
-            model.load_state_dict(torch.load(configs.trained_path))
+    if configs.pretrained_path:
+        if configs.pretrained_path.endswith(".pth"):
+            model.load_state_dict(torch.load(configs.pretrained_path))
             print("Trained pytorch weight loaded!")
         else:
-            model.load_darknet_weights(configs.trained_path)
+            model.load_darknet_weights(configs.pretrained_path)
             print("Darknet weight loaded!")
     # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco.pth")
     # torch.save(model.state_dict(), "checkpoints/Yolo_V3_coco_tiny.pth")
@@ -141,9 +67,9 @@ if __name__ == "__main__":
         "loss_obj",
         "loss_cls",
         "cls_acc",
-        "recall50",
-        "recall75",
-        "precision",
+        # "recall50",
+        # "recall75",
+        # "precision",
         "conf_obj",
         "conf_noobj",
     ]
@@ -166,15 +92,15 @@ if __name__ == "__main__":
     )
 
     max_mAP = 0.0
+    start_time = time.time() 
     for epoch in range(0, configs.num_epochs, 1):
+        
+        num_iters_per_epoch = len(train_dataloader)
 
-        num_iters_per_epoch = len(train_dataloader)        
-
-        # print(num_iters_per_epoch)
+        print(num_iters_per_epoch)
 
         # switch to train mode
         model.train()
-        start_time = time.time()
         
         epoch_loss = 0
         # Training        
@@ -205,9 +131,6 @@ if __name__ == "__main__":
             img = Image.fromarray(data)
             img.save('my_img.png')
             img.show()
-
-            import sys
-            sys.exit()
             """
             
             # data_time.update(time.time() - start_time)
@@ -215,7 +138,7 @@ if __name__ == "__main__":
             global_step = num_iters_per_epoch * epoch + batch_idx + 1
             
             targets = Variable(targets.to(configs.device), requires_grad=False)
-            imgs = Variable(imgs.to(configs.device))
+            imgs    = Variable(imgs.to(configs.device))
 
             total_loss, outputs = model(imgs, targets)
             
@@ -235,8 +158,7 @@ if __name__ == "__main__":
             # ----------------
             #   Log progress
             # ----------------
-            """
-            if (batch_idx+1)%int((len(train_dataloader)/8)) == 0:
+            if (batch_idx+1) % int(len(train_dataloader)/3) == 0:
 
                 log_str = "\n---- [Epoch %d/%d, Batch %d/%d] ----\n" % ((epoch+1), configs.num_epochs, (batch_idx+1), len(train_dataloader))
 
@@ -270,7 +192,6 @@ if __name__ == "__main__":
                 print(log_str)
 
             # model.seen += imgs.size(0)
-        """
         crnt_epoch_loss = epoch_loss/num_iters_per_epoch
         
         torch.save(model.state_dict(), configs.save_path)
@@ -279,15 +200,11 @@ if __name__ == "__main__":
         # print("Global_epoch :",global_epoch, "Current epoch loss : {:1.5f}".format(crnt_epoch_loss),'Saved at {}'.format(configs.save_path))
         print("Current epoch loss : {:1.5f}".format(crnt_epoch_loss),'Saved at {}'.format(configs.save_path))
         
-
-    # Evaulation        
-    #-------------------------------------------------------------------------------------
-
-    # if (epoch+1)%8 == 0:
+    # Evaulation
     print("\n---- Evaluating Model ----")
     # Evaluate the model on the validation set
     precision, recall, AP, f1, ap_class = evaluate_mAP(model, valid_path, configs,
-        batch_size=4)
+        batch_size=configs.batch_size)
 
     val_metrics_dict = {
         'precision': precision.mean(),
@@ -311,6 +228,8 @@ if __name__ == "__main__":
     if (epoch+1) % configs.checkpoint_freq == 0:
         torch.save(model.state_dict(), configs.save_path)
         print('save a checkpoint at {}'.format(configs.save_path))
-        """            
+    """
             
+if __name__ == '__main__':
+    main()
     
