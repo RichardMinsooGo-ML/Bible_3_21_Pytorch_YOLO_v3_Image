@@ -1,3 +1,6 @@
+### English Tutorial : https://wikidocs.net/181722
+### 한글 Tutorial : https://wikidocs.net/162475
+
 # Pytorch Yolov3 : image
 
 YOLOv3 and YOLOv3_tiny implementation in Pytorch, with support for training, transfer training, object tracking mAP and so on...
