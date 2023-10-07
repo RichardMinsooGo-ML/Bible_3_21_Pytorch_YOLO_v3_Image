@@ -1,12 +1,12 @@
-# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/yolov3.weights --class_path data/COCO2017/coco.names
-# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_coco.pth --class_path data/COCO2017/coco.names
+# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/yolov3.weights --class_path dataset/COCO2017/coco.names
+# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_coco.pth --class_path dataset/COCO2017/coco.names
 
-# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/yolov3-tiny.weights --class_path data/COCO2017/coco.names
-# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path data/COCO2017/coco.names
+# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/yolov3-tiny.weights --class_path dataset/COCO2017/coco.names
+# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_coco_tiny.pth --class_path dataset/COCO2017/coco.names
 
-# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_VOC.pth --class_path data/VOC2012/voc2012.names
+# python detect_images.py --model_def config/yolov3.cfg --save_path checkpoints/Yolo_V3_VOC.pth --class_path dataset/VOC2012/voc2012.names
 
-# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path data/VOC2012/voc2012.names
+# python detect_images.py --model_def config/yolov3-tiny.cfg --save_path checkpoints/Yolo_V3_VOC_tiny.pth --class_path dataset/VOC2012/voc2012.names
 
 import os, sys, time, datetime, argparse
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
@@ -33,31 +33,31 @@ Path("pred_IMAGES/images").mkdir(parents=True, exist_ok=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--image_folder"   , type=str, default="data/custom/samples", help="path to dataset")
-    # parser.add_argument("--image_folder"   , type=str, default="data/VOC2012/test_images"  , help="path to dataset")
+    parser.add_argument("--image_folder"   , type=str, default="dataset/custom/samples", help="path to dataset")
+    # parser.add_argument("--image_folder"   , type=str, default="dataset/VOC2012/test_images"  , help="path to dataset")
     
     # Yolov3 : COCO
     parser.add_argument("--model_def"  , type=str,   default="config/yolov3.cfg", help="path to model definition file")
     # parser.add_argument("--save_path"  , type=str,   default="checkpoints/Yolo_V3_coco.pth", help="path to weights file")
     parser.add_argument("--save_path"  , type=str,   default="checkpoints/yolov3.weights", help="path to weights file")
-    parser.add_argument("--class_path" , type=str,   default="data/COCO2017/coco.names", help="path to class label file")
+    parser.add_argument("--class_path" , type=str,   default="dataset/COCO2017/coco.names", help="path to class label file")
     
     """
     # Yolov3-tiny : COCO
     parser.add_argument("--model_def"  , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
     # parser.add_argument("--save_path"  , type=str,   default="checkpoints/Yolo_V3_coco_tiny.pth", help="path to weights file")
     parser.add_argument('--save_path'  , type=str,   default="checkpoints/yolov3-tiny.weights", help="path to weights file")
-    parser.add_argument("--class_path" , type=str,   default="data/COCO2017/coco.names", help="path to class label file")
+    parser.add_argument("--class_path" , type=str,   default="dataset/COCO2017/coco.names", help="path to class label file")
     
     # Yolov3 : VOC
     parser.add_argument("--model_def"  , type=str,   default="config/yolov3.cfg", help="path to model definition file")
     parser.add_argument("--save_path"  , type=str,   default="checkpoints/Yolo_V3_VOC.pth", help="path to weights file")
-    parser.add_argument("--class_path" , type=str,   default="data/VOC2012/voc2012.names", help="path to class label file")
+    parser.add_argument("--class_path" , type=str,   default="dataset/VOC2012/voc2012.names", help="path to class label file")
     
     # Yolov3-tiny : VOC
     parser.add_argument("--model_def"  , type=str,   default="config/yolov3-tiny.cfg", help="path to model definition file")
     parser.add_argument("--save_path"  , type=str,   default="checkpoints/Yolo_V3_VOC_tiny.pth", help="path to weights file")
-    parser.add_argument("--class_path" , type=str,   default="data/VOC2012/voc2012.names", help="path to class label file")
+    parser.add_argument("--class_path" , type=str,   default="dataset/VOC2012/voc2012.names", help="path to class label file")
     """
         
     parser.add_argument("--batch_size" , type=int  , default=4, help="size of each image batch")
