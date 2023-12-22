@@ -1,0 +1,4 @@
+classes = 10
+train = dataset/MNIST/train.txt
+valid = dataset/MNIST/valid.txt
+names = dataset/MNIST/mnist.names
